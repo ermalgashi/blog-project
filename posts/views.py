@@ -4,5 +4,5 @@ from django.http import HttpResponse
 # Create your views here.
 
 
-def allPosts(request):
+def all_posts(request):
     return HttpResponse("<html><body>It is now.</body></html>")
