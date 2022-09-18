@@ -4,7 +4,7 @@
     <div class="jumbotron">
         {% for p in posts %}
             <ul>
-                <li> {{p.title }} </li>
+                <li> <a href="{% url 'get_post' p.id  %}"> {{p.title }} </a></li>
 
             </ul>
         {% endfor %}
