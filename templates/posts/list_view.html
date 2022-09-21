@@ -1,14 +1,35 @@
 {% extends 'base.html' %}
+{% load humanize %}
 {% block content %}
+
+<br>
 <div class="container">
-    <div class="jumbotron">
-        {% for p in posts %}
-            <ul>
-                <li> <a href="{% url 'get_post' cat_id=p.category.id id=p.id %}"> {{p.title }} </a></li>
+<div class="row">
+    
+            {% for p in posts %}
+            <div class="col-lg-6 mb-4">
+            <div class="card mb-3" style="max-width: 400px;">
+                <div class="row g-0">
+                  <div class="col-md-4">
+                    <img src="..." class="img-fluid rounded-start" alt="...">
+                  </div>
+                  <div class="col-md-8">
+                    <div class="card-body">
+                      <a href="{% url 'get_post' cat_id=p.category.id id=p.id %}"><h5 class="card-title">{{p.title}}</h5></a>
+                      <p class="card-text">{{p.content|truncatewords:9}}</p>
+                      <p class="card-text"><small class="text-muted">Last updated {{ p.last_edited|naturaltime }} </small></p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+              {% endfor %}
 
-            </ul>
-        {% endfor %}
-      </div>
-</div>
 
+
+        </div>
+    </div>
+
+
+    
 {% endblock %}
