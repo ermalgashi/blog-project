@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect, get_object_or_404
-from .forms import PostForm
+from .forms import PostForm, ContactForm
 
 from .models import Posts, Category
 
@@ -42,3 +42,16 @@ def edit_post(request, id):
 
     context = {"form": form}
     return render(request, "posts/edit_view.html", context=context)
+
+
+def contact_us(request):
+    if request.method == "POST":
+        form = ContactForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect("all_posts")
+    else:
+        form = ContactForm()
+
+    context = {"form": form}
+    return render(request, "posts/contact_us.html", context=context)
