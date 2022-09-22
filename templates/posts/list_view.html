@@ -17,6 +17,7 @@
                     <div class="card-body">
                       <a href="{% url 'get_post' cat_id=p.category.id id=p.id %}"><h5 class="card-title">{{p.title}}</h5></a>
                       <p class="card-text">{{p.content|truncatewords:9}}</p>
+                      <p class="card-text">{{p.author}}</p>
                       <p class="card-text"><small class="text-muted">Last updated {{ p.last_edited|naturaltime }} </small></p>
                     </div>
                   </div>
