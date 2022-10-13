@@ -46,7 +46,7 @@ def edit_post(request, id):
     return render(request, "posts/edit_view.html", context=context)
 
 
-def contact_us(request):
+def about_us(request):
     if request.method == "POST":
         form = ContactForm(request.POST)
         if form.is_valid():
