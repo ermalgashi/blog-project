@@ -1,3 +1,4 @@
+from unicodedata import category
 from django.shortcuts import render, redirect, get_object_or_404
 from .forms import PostForm, ContactForm
 
@@ -6,10 +7,11 @@ from .models import Posts, Category
 # Create your views here.
 
 
-def all_posts(request, cat_id=None):
+def all_posts(request, c_slug=None):
     posts = None
-    if cat_id is not None:
-        c_page = get_object_or_404(Category, id=cat_id)
+    c_page = None
+    if c_slug is not None:
+        c_page = get_object_or_404(Category, slug=c_slug)
         posts = Posts.objects.filter(category=c_page)
     else:
         posts = Posts.objects.all()
@@ -17,8 +19,8 @@ def all_posts(request, cat_id=None):
     return render(request, "posts/list_view.html", context={"posts": posts})
 
 
-def get_post(request, cat_id, id):
-    post = Posts.objects.get(pk=id)
+def get_post(request, c_slug, post_slug):
+    post = Posts.objects.get(category__slug=c_slug, slug=post_slug)
     context = {
         "id": post.id,
         "title": post.title,

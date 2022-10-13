@@ -16,7 +16,7 @@
           </a>
           <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
             {% for cat in links %}
-            <li><a class="dropdown-item" href="{% url 'get_posts_by_category' cat_id=cat.id %}">{{cat}}</a></li>
+            <li><a class="dropdown-item" href="{{cat.get_absolute_url}}">{{cat}} </a></li>
             <li><hr class="dropdown-divider"></li>
             {% endfor %}
           </ul>

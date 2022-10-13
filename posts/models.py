@@ -6,12 +6,16 @@ from django.urls import reverse
 class Category(models.Model):
     name = models.CharField(max_length=256)
     content = models.CharField(max_length=256)
+    slug = models.SlugField(max_length=200)
 
     class Meta:
         verbose_name_plural = "Categories"
 
     def __str__(self):
         return self.name
+
+    def get_absolute_url(self):
+        return reverse("get_posts_by_category", kwargs={"c_slug": self.slug})
 
 
 class Posts(models.Model):
@@ -21,10 +25,17 @@ class Posts(models.Model):
     last_edited = models.DateTimeField(auto_now=True)
     date_created = models.DateTimeField(auto_now_add=True)
     draft = models.BooleanField(default=False)
+    slug = models.SlugField(max_length=200)
     category = models.ForeignKey(Category, on_delete=models.CASCADE)
 
     def __str__(self):
         return self.title
+
+    def get_absolute_url(self):
+        return reverse(
+            "get_post",
+            kwargs={"c_slug": self.category.slug, "post_slug": self.slug},
+        )
 
     class Meta:
         ordering = ("-date_created",)
