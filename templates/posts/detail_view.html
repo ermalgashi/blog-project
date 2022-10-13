@@ -8,7 +8,7 @@
         <p>Last Edited: {{last_edited}} </p>
         <p class="lead">
           {% if user.is_authenticated and user.id == author.id %}
-          <a class="btn btn-primary btn-lg" href="{% url 'edit_post' id %}" role="button">Edit</a>
+          <a class="btn btn-primary btn-lg" href="{% url 'edit_post' c_slug=category.slug post_slug=slug %}" role="button">Edit</a>
           {% endif %}
         </p>
       </div>

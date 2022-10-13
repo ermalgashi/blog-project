@@ -26,19 +26,20 @@ def get_post(request, c_slug, post_slug):
         "title": post.title,
         "content": post.content,
         "author": post.author,
+        "slug": post.slug,
+        "category": post.category,
         "last_edited": post.last_edited,
     }
     return render(request, "posts/detail_view.html", context)
 
 
-def edit_post(request, id):
-    post = Posts.objects.get(pk=id)
-
+def edit_post(request, c_slug, post_slug):
+    post = Posts.objects.get(category__slug=c_slug, slug=post_slug)
     if request.method == "POST":
         form = PostForm(request.POST, instance=post)
         if form.is_valid():
             form.save()
-            return redirect("get_post", post.category.id, post.id)
+            return redirect("get_post", c_slug, post_slug)
     else:
         form = PostForm(instance=post)
 
